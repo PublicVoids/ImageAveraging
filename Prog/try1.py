@@ -15,10 +15,15 @@ while(True):
     ret, frame = cap.read()
 
     # Our operations on the frame come here
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    try:
+        OldGray
+    except  NameError:
+        OldGray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    Gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    cv2.addWeighted( Gray, 0.1, OldGray, 0.9, 0.0, OldGray);    
 
     # Display the resulting frame
-    cv2.imshow('frame',gray)
+    cv2.imshow('frame',OldGray)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
     
@@ -26,3 +31,4 @@ while(True):
 # When everything done, release the capture
 cap.release()
 cv2.destroyAllWindows()
+print "Done"
